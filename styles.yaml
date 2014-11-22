@@ -31,7 +31,7 @@ modes:
     # all:
     #     shaders:
     #         transforms:
-    #             fragment: { url: demos/shaders/spotlight.glsl }
+    #             fragment: { url: node_modules/tangram/demos/shaders/spotlight.glsl }
 
     water:
         extends: polygons
@@ -41,9 +41,9 @@ modes:
                 EFFECT_NOISE_ANIMATED: true
             transforms:
                 globals:
-                    url: demos/shaders/glsl-noise-periodic-3d.glsl
+                    url: node_modules/tangram/demos/shaders/glsl-noise-periodic-3d.glsl
                 fragment:
-                    url: demos/shaders/noise.glsl
+                    url: node_modules/tangram/demos/shaders/noise.glsl
 
     formica:
         extends: polygons
@@ -52,9 +52,9 @@ modes:
                 EFFECT_NOISE_TEXTURE: true
             transforms:
                 globals:
-                    url: demos/shaders/glsl-noise-periodic-3d.glsl
+                    url: node_modules/tangram/demos/shaders/glsl-noise-periodic-3d.glsl
                 fragment:
-                    url: demos/shaders/noise.glsl
+                    url: node_modules/tangram/demos/shaders/noise.glsl
 
     colorbleed:
         extends: polygons
@@ -64,8 +64,8 @@ modes:
                 EFFECT_COLOR_BLEED_ANIMATED: true
             transforms:
                 fragment:
-                    - url: demos/shaders/color_bleed.glsl
-                    # - url: demos/shaders/spotlight.glsl
+                    - url: node_modules/tangram/demos/shaders/color_bleed.glsl
+                    # - url: node_modules/tangram/demos/shaders/spotlight.glsl
 
     rainbow:
         extends: polygons
@@ -90,15 +90,15 @@ modes:
                 u_popup_height: 3 # 1.1
             transforms:
                 globals:
-                    - url: ./src/gl/shaders/modules/popup.glsl
+                    - url: node_modules/tangram/src/gl/shaders/modules/popup.glsl
                     -
                         uniform float u_popup_radius;
                         uniform float u_popup_height;
                 vertex: |
                     position.z *= u_popup_height; // boost height for exaggerated visual effect
                     position = popup(position, vec2(0., 0.), u_popup_radius * u_meters_per_pixel);
-                # vertex: { url: demos/shaders/popup.glsl }
-                # fragment: { url: demos/shaders/color_bleed.glsl }
+                # vertex: { url: node_modules/tangram/demos/shaders/popup.glsl }
+                # fragment: { url: node_modules/tangram/demos/shaders/color_bleed.glsl }
 
     elevator:
         extends: polygons
@@ -106,7 +106,7 @@ modes:
         shaders:
             transforms:
                 vertex: position.z *= (sin(position.z + u_time) + 1.0); // elevator buildings
-                # vertex: { url: demos/shaders/elevator.glsl }
+                # vertex: { url: node_modules/tangram/demos/shaders/elevator.glsl }
 
     breathe:
         extends: polygons
@@ -123,7 +123,7 @@ modes:
                     uniform float u_breathe_speed;
                 vertex:
                     position.xy += a_normal.xy * u_breathe_scale * smoothstep(0.25, 1., abs(sin(u_time * u_breathe_speed)));
-                # vertex: { url: demos/shaders/breathe.glsl }
+                # vertex: { url: node_modules/tangram/demos/shaders/breathe.glsl }
 
     dots:
         extends: polygons
@@ -134,7 +134,7 @@ modes:
                 u_dot_background_color: [.5, .2, .2]
                 u_dot_color: [1, 1, 1]
             transforms:
-                globals: { url: demos/shaders/dots.glsl }
+                globals: { url: node_modules/tangram/demos/shaders/dots.glsl }
                 fragment: color.rgb *= dots(v_world_position.xyz);
                 # fragment: color *= dots(v_world_position.xyz + vec3(0., 0., u_time * 25.)); // animated dots
                 # fragment: vec3 n = abs(v_normal); if (n.z > n.x && n.z > n.y) { color *= dots(v_world_position.xyz); } // apply only to up-facing surfaces
@@ -150,7 +150,7 @@ modes:
                 u_wood_scale: 50
                 u_wood_spacing: 1
             transforms:
-                globals: { url: 'demos/shaders/wood.glsl' }
+                globals: { url: 'node_modules/tangram/demos/shaders/wood.glsl' }
                 fragment: color.rgb = wood(v_world_position.xyz) * lighting;
         # buildPolygons: |
         #     function (polygons, style, vertex_data) {
@@ -360,7 +360,7 @@ modes:
         shaders:
             transforms:
                 # fragment: color += vec3(gl_FragCoord.x / u_resolution.x, 0.0, gl_FragCoord.y / u_resolution.y);
-                fragment: { url: demos/shaders/color_bleed.glsl }
+                fragment: { url: node_modules/tangram/demos/shaders/color_bleed.glsl }
 
     # polygons:
     #     texcoords: true
