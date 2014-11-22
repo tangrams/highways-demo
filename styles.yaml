@@ -73,6 +73,18 @@ layers:
                 Utils.interpolate(zoom, [[13, 0], [15, 4], [16, 6], [18, 10]]) ||
                 Utils.interpolate(zoom, [[10, 2], [13, 3], [15, 5], [16, 8], [18, 12]]);
                 } )
+            # highway: |
+            #     function() {
+            #         return (feature.is_link == "yes" || feature.is_tunnel == "yes") &&
+            #         Utils.interpolate(zoom, [[13, 0px], [15, 4px], [16, 6px], [18, 10px]]) ||
+            #         Utils.interpolate(zoom, [[10, 2px], [13, 3px], [15, 5px], [16, 8px], [18, 12px]]);
+            #     }
+            # highway: function() {
+            #     return (feature.is_link == "yes" || feature.is_tunnel == "yes") &&
+            #     Utils.interpolate(zoom, [[13, 0px], [15, 4px], [16, 6px], [18, 10px]]) ||
+            #     Utils.interpolate(zoom, [[10, 2px], [13, 3px], [15, 5px], [16, 8px], [18, 12px]]);
+            #     }
+            # highway: 10px
             major_road: [[12, 0px], [14, 2px], [15, 4px], [16, 5px]]
             minor_road: [[13, 0px], [15, 3px], [17, 5px]]
             path: [[12, 0px], [13, 1px], [17, 5px]]
@@ -93,6 +105,11 @@ layers:
                     Utils.interpolate(zoom, [[13, 0], [16, 2]]) ||
                     Utils.interpolate(zoom, [[10, 0], [13, 1], [15, 2], [16, 3]]);
                     } )
+                # highway: function() {
+                #     return (feature.is_link == "yes" || feature.is_tunnel == "yes") &&
+                #     Utils.interpolate(zoom, [[13, 0px], [16, 2px]]) ||
+                #     Utils.interpolate(zoom, [[10, 0px], [13, 1px], [15, 2px], [16, 3px]]);
+                #     }
                 major_road: [[10, 0px], [16, 2px]]
                 minor_road: [[13, 0px], [18, 1px]]
                 path: [[13, 0px], [18, 1px]]
@@ -110,10 +127,13 @@ layers:
     pois:
         mode:
             name: points
-        filter: function () { return zoom >= 15 && feature.name != null; }
-        visible: false
-        interactive: true
+        # filter: function () { return zoom >= 15 && feature.name != null; }
+        visible: true
+        # interactive: true
         color:
             default: [1, 1, 0]
         size:
-            default: Style.pixels(5)
+            # default: Style.pixels(5)
+            default: 5px
+            # default: [[15, 5px]]
+            # default: [[15, 5px], [15, 5px]]
