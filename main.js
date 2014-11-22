@@ -9,18 +9,10 @@
     }
 
     // default source, can be overriden by URL
-    var default_tile_source = 'ghosts',
+    var default_tile_source = 'mapzen',
         rS;
 
     var tile_sources = {
-        'ghosts': {
-            source: {
-                type: 'GeoJSONTileSource',
-                url:  appendProtocol('//vector.mapzen.com/osm/all/{z}/{x}/{y}.json')
-            },
-            layers: 'layers.yaml',
-            styles: 'styles.yaml'
-        },
         'mapzen': {
             source: {
                 type: 'GeoJSONTileSource',
