@@ -3,20 +3,9 @@
 
 camera:
     type: isometric
-    # focal_length: 1
-    focal_length: [[16, 2], [17, 2.5], [18, 3], [19, 4], [20, 6]] # pairs of [zoom, focal len]
-    vanishing_point: [-.25, -.25] # slightly off-center viewing angle, towards lower-left of screen
-
-    # type: isometric
-    # axis: [1, .5]
-
-    # type: flat
 
 lighting:
-    type: flat
-
-modes:
-
+    type: directional
 
 layers:
     earth:
@@ -24,19 +13,12 @@ layers:
             default: [.4, .4, .4]
 
     landuse:
-        interactive: true
         color:
             default: [0.5, 0.875, 0.5]
             default: [[10, [0.3, 0.4, 0.3]], [14, [0.5, 0.875, 0.5]]]
             pitch: [0.3, 0.675, 0.3]
-        # outline:
-        #     color:
-        #         default: [1, 1, 1]
-        #     width:
-        #         default: 1
 
     water:
-        interactive: true
         color:
             default: [0.83, 0.83, 0.83]
         outline:
@@ -53,8 +35,6 @@ layers:
                     }
 
     roads:
-        interactive: function () { return (zoom >= 18); }
-        # interactive: true
         order: function () { return feature.sort_key * .000025; }
         color:
             default: [1, 1, 1]
@@ -114,11 +94,8 @@ layers:
                 minor_road: [[13, 0px], [18, 1px]]
                 path: [[13, 0px], [18, 1px]]
                 rail: 0
-                debug:
-                    function () { return (zoom >= 16 && (2/8 * Math.log(zoom))); }
 
     buildings:
-        interactive: true
         color:
             default: [.2, .2, .2]
         # extrude:
@@ -129,11 +106,7 @@ layers:
             name: points
         # filter: function () { return zoom >= 15 && feature.name != null; }
         visible: true
-        # interactive: true
         color:
             default: [1, 1, 0]
         size:
-            # default: Style.pixels(5)
             default: 5px
-            # default: [[15, 5px]]
-            # default: [[15, 5px], [15, 5px]]
