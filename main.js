@@ -29,7 +29,7 @@
 
     // Get location from URL
     var map_start_location = locations['New York'];
-    if (url_hash.length === 1) {
+    if (url_hash.length === 1 && url_hash != "") {
         map_start_location = locations[url_hash[0]];
     }
     else if (url_hash.length === 3) {
