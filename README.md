@@ -8,10 +8,10 @@ A demo showing some contextual highway styles.
 
 Then start a web server in this directory:
 
-    python -m SimpleHTTPServer
+    python -m SimpleHTTPServer 8000
     
 If that doesn't work, try:
 
-    python -m http.server
+    python -m http.server 8000
     
-Then navigate to: http://localhost
+Then navigate to: http://localhost:8000
