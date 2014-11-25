@@ -59,7 +59,7 @@ layers:
                 # strings must have quotes inside a function 
             major_road: [[9, 0px], [14, 1.5px], [15, 2.5px], [16, 4px], [17, 7px], [18, 15px]]
             minor_road: [[10, 0px], [12, .25px], [13, .5px], [15, 3px], [17, 5px]]
-            path: [[15, "0px"], [16, 2px], [17, 3px], [18, 5px]]
+            path: [[15, 0px], [16, 2px], [17, 3px], [18, 5px]]
             rail: return 0
             debug: function () { return 5; }
 
