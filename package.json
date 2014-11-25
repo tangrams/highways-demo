@@ -1,6 +1,6 @@
 {
   "name": "highways-demo",
   "dependencies": {
-	"tangram": "git://github.com/tangrams/tangram.git#peter/color-stops"
+	"tangram": "git://github.com/tangrams/tangram.git"
   }
 }
