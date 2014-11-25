@@ -1,6 +1,6 @@
-# tangram-demo
+# highways-demo
 
-A demo showing some contextual highway styles.
+A demo showing some contextual highway styles using the [Tangram](http://github.com/tangrams/tangram) library.
 
 ### Installation
 
