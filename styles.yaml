@@ -43,14 +43,10 @@ layers:
         #     }
         color:
             default: [1, 1, 1]
-            # highway: function () { return feature.is_link == "yes" && zoom == 12 && [1, 0, 0]; }
             highway: function () { return (
                 feature.is_tunnel == "yes" && zoom >= 13 && [0.6, 0.6, 0.5] ||
                 feature.is_link == "yes" && [0.65882, 0.65882, 0.50196] ||
                     [1.0, .8, .0]) }
-            # highway: [1.0, .0, 0]
-            # feature.is_link == "yes" && zoom <= 13 [1, 1, 1] ||
-            #feature.is_link == "yes" && zoom <= 13 [1, 1, 1] ||
             major_road: [[13, [0.8, 0.8, 0.8]], [17, [1, 1, 1]]]
             minor_road: [[15, [0.6, 0.6, 0.6]], [17, [0.8, 0.8, 0.8]]]
             path: [0.8, 0.8, 0.8]
@@ -58,11 +54,9 @@ layers:
             debug: [1, 0, 0]
         width:
             default: function () { return 1 * Math.log(zoom); }
-            highway: Style.pixels( function() {
-                return feature.is_link == "yes" &&
-                Utils.interpolate(zoom, [[13, 0.001], [14, 3], [16, 5], [18, 10]]) ||
-                Utils.interpolate(zoom, [[10, 2], [13, 3], [15, 4], [16, 8], [18, 20]]);
-                } )
+            highway: function () { return (feature.is_link == "yes" && [[13, "0px"], [14, "3px"], [16, "5px"], [18, "10px"]]) || [[10, "2px"], [13, "3px"], [15, "4px"], [16, "8px"], [18, "20px"]];
+                }
+                # strings must have quotes inside a function 
             major_road: [[9, 0px], [14, 1.5px], [15, 2.5px], [16, 4px], [17, 7px], [18, 15px]]
             minor_road: [[10, 0px], [12, .25px], [13, .5px], [15, 3px], [17, 5px]]
             path: [[15, "0px"], [16, 2px], [17, 3px], [18, 5px]]
@@ -72,22 +66,14 @@ layers:
         outline:
             color:
                 default: [0., 0., 0.]
-                highway: |
-                    function() { return (feature.is_link == "yes" || feature.is_tunnel == "yes") && zoom >= 13 && [.3, .3, .3] || [0., 0., 0.];
+                highway: function() { return (feature.is_link == "yes" || feature.is_tunnel == "yes") && zoom >= 13 && [.3, .3, .3] || [0., 0., 0.];
                     }
             width:
                 default:
                     function () { return (zoom >= 16 && (2/8 * Math.log(zoom))); }
-                highway: Style.pixels( function() {
-                    return feature.is_link == "yes" &&
-                    Utils.interpolate(zoom, [[13, 0.001], [14, .5], [18, 1.5]]) ||
-                    Utils.interpolate(zoom, [[9, .25], [13, 1], [18, 3]]);
-                    } )
-                # highway: function() {
-                #     return (feature.is_link == "yes" || feature.is_tunnel == "yes") &&
-                #     Utils.interpolate(zoom, [[13, 0px], [16, 2px]]) ||
-                #     Utils.interpolate(zoom, [[10, 0px], [13, 1px], [15, 2px], [16, 3px]]);
-                #     }
+                highway: function() { return feature.is_link == "yes" &&
+                    [[13, "0px"], [14, ".5px"], [18, "1.5px"]] ||
+                    [[9, ".25px"], [13, "1px"], [18, "3px"]]; }
                 major_road: [[10, 0px], [16, 1px]]
                 minor_road: [[13, 0px], [18, 1px]]
                 path: [[15, 0px], [16, .5px]]
