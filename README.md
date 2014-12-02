@@ -2,11 +2,9 @@
 
 A demo showing some contextual highway styles using the [Tangram](http://github.com/tangrams/tangram) library.
 
-### Installation
+### To run:
 
-    npm install
-
-Then start a web server in this directory:
+Start a web server in the repo's directory:
 
     python -m SimpleHTTPServer 8000
     
