@@ -5,12 +5,12 @@
     'use strict';
 
     var locations = {
-        'London': [51.508, -0.105, 15],
+        'Oakland': [37.8044, -122.2708, 15],
         'New York': [40.70531887544228, -74.00976419448853, 15],
-        'Seattle': [47.609722, -122.333056, 15]
+        'Seattle': [47.5937, -122.3215, 15]
     };
 
-    var map_start_location = locations['New York'];
+    var map_start_location = locations['Oakland'];
 
     /*** Map ***/
 
