@@ -4,20 +4,22 @@
 (function () {
     'use strict';
 
+    var locations = {
+        'London': [51.508, -0.105, 15],
+        'New York': [40.70531887544228, -74.00976419448853, 15],
+        'Seattle': [47.609722, -122.333056, 15]
+    };
+
+    var map_start_location = locations['New York'];
+
     /*** Map ***/
 
-    var map = L.map('map', {
-        maxZoom: 20,
-        minZoom: 2,
-        inertia: false,
-        keyboard: true,
-        zoomAnimation: false
-    });
+    var map = L.map('map');
 
     var layer = Tangram.leafletLayer({
         vectorTileSource: {
             type: 'GeoJSONTileSource',
-            url:  window.location.protocol+'//vector.mapzen.com/osm/all/{z}/{x}/{y}.json'
+            url:  'http://vector.mapzen.com/osm/all/{z}/{x}/{y}.json'
         },
         vectorLayers: 'layers.yaml',
         vectorStyles: 'styles.yaml',
@@ -26,14 +28,14 @@
         unloadInvisibleTiles: false,
         updateWhenIdle: false
     });
-    window.layer = layer;
 
+    window.layer = layer;
     var scene = layer.scene;
     window.scene = scene;
 
-    // Update URL hash on move
-    map.attributionControl.setPrefix('');
     map.setView(map_start_location.slice(0, 2), map_start_location[2]);
+
+    var hash = new L.Hash(map);
 
     // Resize map to window
     function resizeMap() {
@@ -49,7 +51,6 @@
         // Scene initialized
         layer.on('init', function() {
             resizeMap();
-            updateURL();
         });
         layer.addTo(map);
     });
