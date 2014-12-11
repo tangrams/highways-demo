@@ -16,44 +16,43 @@ layers:
             order: 0
             color: [.4, .4, .4]
 
-    # landuse:
-    #     geometry:
-    #         source: osm
-    #         filter: landuse
-    #     style:
-    #         order: 1
-    #         color: [[10, [0.3, 0.4, 0.3]], [14, [0.5, 0.875, 0.5]]]
-    #     pitch:
-    #         filter: 
-    #             kind: [pitch, playground]
-    #         style:
-    #             color: [0.3, 0.675, 0.3]
+    landuse:
+        geometry:
+            source: osm
+            filter: landuse
+        style:
+            order: 1
+            color: [[10, [0.3, 0.4, 0.3]], [14, [0.5, 0.875, 0.5]]]
+        pitch:
+            filter: 
+                kind: [pitch, playground]
+            style:
+                color: [0.3, 0.675, 0.3]
 
-    # water:
-    #     geometry:
-    #         source: osm
-    #         filter: water
-    #     style:
-    #         order: 2
-    #         color: [0.83, 0.83, 0.83]
-    #         outline:
-    #             color: [.6, .6, .6]
-    #             width: |
-    #                 function () {
-    #                     return (
-    #                         zoom >= 14 &&
-    #                         (feature.kind != 'ocean' && feature.kind != 'riverbank') &&
-    #                         (2.5 * Math.log(zoom))
-    #                     );
-    #                 }
+    water:
+        geometry:
+            source: osm
+            filter: water
+        style:
+            order: 2
+            color: [0.83, 0.83, 0.83]
+            outline:
+                color: [.6, .6, .6]
+                width: |
+                    function () {
+                        return (
+                            zoom >= 14 &&
+                            (feature.kind != 'ocean' && feature.kind != 'riverbank') &&
+                            (2.5 * Math.log(zoom))
+                        );
+                    }
 
     roads:
         geometry:
             source: osm
             filter: roads
         style:
-            order: function () { return 3+(feature.sort_key * .000025); }
-            # order: function () { return feature.sort_key * .000025; }
+            order: function () { return (zoom >= 13 && feature.sort_key * .000025); }
             # order: 3
             color: [0.83, 0.83, 0.83]
             width: function () { return 1 * Math.log(zoom); }
@@ -64,23 +63,20 @@ layers:
             filter:
                 kind: highway
             style:
-                # order: function () { return (zoom < 13 && 10); }
-                order: function () { return (10); }
                 color: [1.0, .8, .0]
                 width: [[10, 2px], [13, 3px], [15, 4px], [16, 8px], [18, 20px]]
+                outline:
+                    color: function() { return (feature.is_link == "yes" || feature.is_tunnel == "yes") && zoom >= 13 && [.3, .3, .3] || [0., 0., 0.];
+                        }
             link:
                 filter: function () { return zoom >= 13 && feature.is_link == "yes"; }
                 style:
                     color: [0.65882, 0.65882, 0.50196]
                     width: [[13, 0px], [14, 3px], [16, 5px], [18, 10px]]
-                    outline:
-                        color: [.3, .3, .3]
             tunnel:
                 filter: function () { return zoom >= 13 && feature.is_tunnel == "yes"; }
                 style:
                     color: [0.65882, 0.65882, 0.50196]
-                    outline:
-                        color: [.3, .3, .3]
         major_road:
             filter:
                 kind: major_road
@@ -88,6 +84,7 @@ layers:
                 color: [[13, [0.8, 0.8, 0.8]], [17, [1, 1, 1]]]
                 width: [[9, 0px], [14, 1.5px], [15, 2.5px], [16, 4px], [17, 7px], [18, 15px]]
                 outline:
+                    color: [0, 0, 0]
                     width: [[10, 0px], [16, 1px]]
 
         minor_road:
@@ -97,6 +94,7 @@ layers:
                 color: [[15, [0.6, 0.6, 0.6]], [17, [0.8, 0.8, 0.8]]]
                 width: [[10, 0px], [12, .25px], [13, .5px], [15, 3px], [17, 5px]]
                 outline:
+                    color: [0, 0, 0]
                     width: [[13, 0px], [18, 1px]]
         path:
             filter:
@@ -105,6 +103,7 @@ layers:
                 color: [0.8, 0.8, 0.8]
                 width: [[15, 0px], [16, 2px], [17, 3px], [18, 5px]]
                 outline:
+                    color: [0, 0, 0]
                     width: [[15, 0px], [16, .5px]]
 
     buildings:
