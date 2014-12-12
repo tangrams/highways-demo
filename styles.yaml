@@ -16,36 +16,36 @@ layers:
             order: 0
             color: [.4, .4, .4]
 
-    # landuse:
-    #     geometry:
-    #         source: osm
-    #         filter: landuse
-    #     style:
-    #         order: 1
-    #         color: [[10, [0.3, 0.4, 0.3]], [14, [0.5, 0.875, 0.5]]]
-    #     pitch:
-    #         filter: 
-    #             kind: [pitch, playground]
-    #         style:
-    #             color: [0.3, 0.675, 0.3]
+    landuse:
+        geometry:
+            source: osm
+            filter: landuse
+        style:
+            order: 1
+            color: [[10, [0.3, 0.4, 0.3]], [14, [0.5, 0.875, 0.5]]]
+        pitch:
+            filter: 
+                kind: [pitch, playground]
+            style:
+                color: [0.3, 0.675, 0.3]
 
-    # water:
-    #     geometry:
-    #         source: osm
-    #         filter: water
-    #     style:
-    #         order: 2
-    #         color: [0.83, 0.83, 0.83]
-    #         outline:
-    #             color: [.6, .6, .6]
-    #             width: |
-    #                 function () {
-    #                     return (
-    #                         zoom >= 14 &&
-    #                         (feature.kind != 'ocean' && feature.kind != 'riverbank') &&
-    #                         (2.5 * Math.log(zoom))
-    #                     );
-    #                 }
+    water:
+        geometry:
+            source: osm
+            filter: water
+        style:
+            order: 2
+            color: [0.83, 0.83, 0.83]
+            outline:
+                color: [.6, .6, .6]
+                width: |
+                    function () {
+                        return (
+                            zoom >= 14 &&
+                            (feature.kind != 'ocean' && feature.kind != 'riverbank') &&
+                            (2.5 * Math.log(zoom))
+                        );
+                    }
 
     roads:
         geometry:
@@ -53,8 +53,6 @@ layers:
             filter: roads
         style:
             order: function () { return 3+(feature.sort_key * .000025); }
-            # order: function () { return feature.sort_key * .000025; }
-            # order: 3
             color: [0.83, 0.83, 0.83]
             width: function () { return 1 * Math.log(zoom); }
             outline:
@@ -64,8 +62,7 @@ layers:
             filter:
                 kind: highway
             style:
-                # order: function () { return (zoom < 13 && 10); }
-                order: function () { return (10); }
+                order: function () { return (zoom < 13 && 3.5); }
                 color: [1.0, .8, .0]
                 width: [[10, 2px], [13, 3px], [15, 4px], [16, 8px], [18, 20px]]
             link:
@@ -114,4 +111,4 @@ layers:
         style:
             order: 4
             color: [.3, .3, .3]
-            extrude: function () { return ((zoom >= 15 && feature.height > 20) || zoom >= 16 && .5) }
+            extrude: function () { return ((zoom >= 15 && feature.height > 20) || zoom >= 16 && 20) }
