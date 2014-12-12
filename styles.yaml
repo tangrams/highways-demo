@@ -3,6 +3,7 @@
 
 camera:
     type: isometric
+    axis: [0, .2]
 
 lighting:
     type: directional
@@ -36,16 +37,13 @@ layers:
         style:
             order: 2
             color: [0.83, 0.83, 0.83]
-            outline:
-                color: [.6, .6, .6]
-                width: |
-                    function () {
-                        return (
-                            zoom >= 14 &&
-                            (feature.kind != 'ocean' && feature.kind != 'riverbank') &&
-                            (2.5 * Math.log(zoom))
-                        );
-                    }
+
+        outline-style:
+            filter: function () { return (feature.kind != 'ocean' && feature.kind != 'riverbank') && zoom >= 14; }
+            style:
+                outline:
+                    color: [.6, .6, .6]
+                    width: function() {return (2.5 * Math.log(zoom));}
 
     roads:
         geometry:
@@ -58,22 +56,32 @@ layers:
             outline:
                 color: [0, 0, 0]
                 width: function () { return (zoom >= 16 && (2/8 * Math.log(zoom))); }
+
         highway:
             filter:
                 kind: highway
             style:
-                order: function () { return (zoom < 13 && 3.5); }
+                # order-reset: true
+                # could use "order-reset" or equivalent to prevent order inheritance
+                order: function () { return (zoom < 13 && 3.5)-(feature.sort_key * .000025); }
                 color: [1.0, .8, .0]
                 width: [[10, 2px], [13, 3px], [15, 4px], [16, 8px], [18, 20px]]
+                outline:
+                    width: [[9, .25px], [13, 1px], [19, 3px]]
             link:
-                filter: function () { return zoom >= 13 && feature.is_link == "yes"; }
+                filter:
+                    is_link: yes
+                    scene.zoom: 13
                 style:
                     color: [0.65882, 0.65882, 0.50196]
                     width: [[13, 0px], [14, 3px], [16, 5px], [18, 10px]]
                     outline:
                         color: [.3, .3, .3]
+                        width: [[13, 0px], [14, .5px], [18, 1.5px]]
             tunnel:
-                filter: function () { return zoom >= 13 && feature.is_tunnel == "yes"; }
+                filter:
+                    is_tunnel: yes
+                    scene.zoom: 13
                 style:
                     color: [0.65882, 0.65882, 0.50196]
                     outline:
@@ -111,4 +119,15 @@ layers:
         style:
             order: 4
             color: [.3, .3, .3]
-            extrude: function () { return ((zoom >= 15 && feature.height > 20) || zoom >= 16 && 20) }
+            extrude: function () { return ( zoom >= 16) || (zoom >= 15 && feature.height > 20) }
+
+        # z16:
+        #     filter:
+        #         scene.zoom: 16
+        #     style:
+        #         extrude: true
+        # z15:
+        #     filter: function() {return feature.height >= 50 && zoom >= 15}
+        #     style:
+        #         extrude: true
+
