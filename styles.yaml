@@ -59,9 +59,8 @@ layers:
         highway:
             filter: { kind: highway }
             style:
-                # order-reset: true
-                # could use "order-reset" or equivalent to prevent order inheritance
-                order: function () { return (zoom < 13 && 3.5-(feature.sort_key * .000025)); }
+                orderReset: true
+                order: function () { return (zoom < 14 && 3.5) || 3+(feature.sort_key * .000025); }
                 color: [1.0, .8, .0]
                 width: [[10, 2px], [13, 3px], [15, 4px], [16, 8px], [18, 20px]]
                 outline:
