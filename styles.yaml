@@ -106,7 +106,8 @@ layers:
                 color: [0.8, 0.8, 0.8]
                 width: [[15, 0px], [16, 2px], [17, 3px], [18, 5px]]
                 outline:
-                    width: [[15, 0px], [16, .5px]]
+                    color: "#666"
+                    # width: [[15, 0px], [16, .2px]]
 
     buildings:
         geometry: { source: osm, filter: buildings }
