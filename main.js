@@ -4,25 +4,6 @@
 (function () {
     'use strict';
 
-    function appendProtocol(url) {
-        return window.location.protocol + url;
-    }
-
-    // default source, can be overriden by URL
-    var default_tile_source = 'mapzen',
-        rS;
-
-    var tile_sources = {
-        'mapzen': {
-            source: {
-                type: 'GeoJSONTileSource',
-                url:  appendProtocol('//vector.mapzen.com/osm/all/{z}/{x}/{y}.json')
-            },
-            // scene: 'demos/simple-styles.yaml'
-            scene: 'demos/styles.yaml'
-        },
-    }
-
     var locations = {
         'Oakland': [37.8044, -122.2708, 15],
         'New York': [40.70531887544228, -74.00976419448853, 15],
