@@ -4,6 +4,25 @@
 (function () {
     'use strict';
 
+    function appendProtocol(url) {
+        return window.location.protocol + url;
+    }
+
+    // default source, can be overriden by URL
+    var default_tile_source = 'mapzen',
+        rS;
+
+    var tile_sources = {
+        'mapzen': {
+            source: {
+                type: 'GeoJSONTileSource',
+                url:  appendProtocol('//vector.mapzen.com/osm/all/{z}/{x}/{y}.json')
+            },
+            // scene: 'demos/simple-styles.yaml'
+            scene: 'demos/styles.yaml'
+        },
+    }
+
     var locations = {
         'Oakland': [37.8044, -122.2708, 15],
         'New York': [40.70531887544228, -74.00976419448853, 15],
@@ -11,6 +30,18 @@
     };
 
     var map_start_location = locations['Oakland'];
+
+    /*** URL parsing ***/
+
+    // leaflet-style URL hash pattern:
+    // #[zoom],[lat],[lng]
+    var url_hash = window.location.hash.slice(1, window.location.hash.length).split('/');
+
+    if (url_hash.length == 3) {
+        map_start_location = [url_hash[1],url_hash[2], url_hash[0]];
+        // convert from strings
+        map_start_location = map_start_location.map(Number);
+    }
 
     /*** Map ***/
 
@@ -34,7 +65,8 @@
     var scene = layer.scene;
     window.scene = scene;
 
-    map.setView(map_start_location.slice(0, 2), map_start_location[2]);
+    // setView expects format ([lat, long], zoom)
+    map.setView(map_start_location.slice(0, 3), map_start_location[2]);
 
     var hash = new L.Hash(map);
 
