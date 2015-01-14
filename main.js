@@ -27,7 +27,7 @@
     /*** Map ***/
 
     var map = L.map('map',
-        {"keyboardZoomOffset" : .025}
+        {"keyboardZoomOffset" : .05}
     );
 
     var layer = Tangram.leafletLayer({
