@@ -12,11 +12,23 @@
 
     var map_start_location = locations['Oakland'];
 
+    /*** URL parsing ***/
+
+    // leaflet-style URL hash pattern:
+    // #[zoom],[lat],[lng]
+    var url_hash = window.location.hash.slice(1, window.location.hash.length).split('/');
+
+    if (url_hash.length == 3) {
+        map_start_location = [url_hash[1],url_hash[2], url_hash[0]];
+        // convert from strings
+        map_start_location = map_start_location.map(Number);
+    }
+
     /*** Map ***/
 
     var map = L.map('map',
         {"keyboardZoomOffset" : .025}
-        );
+    );
 
     var layer = Tangram.leafletLayer({
         source: {
@@ -34,7 +46,8 @@
     var scene = layer.scene;
     window.scene = scene;
 
-    map.setView(map_start_location.slice(0, 2), map_start_location[2]);
+    // setView expects format ([lat, long], zoom)
+    map.setView(map_start_location.slice(0, 3), map_start_location[2]);
 
     var hash = new L.Hash(map);
 
