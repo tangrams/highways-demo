@@ -49,6 +49,7 @@ layers:
     roads:
         geometry: { source: osm, filter: roads }
         style:
+            # separate roads in z slightly based on their sort_key
             order: function () { return 3+(feature.sort_key * .000025); }
             color: [0.83, 0.83, 0.83]
             width: function () { return Math.log(zoom); }
@@ -59,14 +60,14 @@ layers:
         highway:
             filter: { kind: highway }
             style:
-                orderReset: true
-                order: function () { return (zoom < 14 && 3.5) || 3+(feature.sort_key * .000025); }
+                orderReset: true # do not inherit from parent roads style - set independently
+                order: function () { return (zoom < 14 && 3.5) || 3+(feature.sort_key * .000025); } # if zoom < 14, set to 3.5 (all at same z, and on top of all other roads) – otherwise, use standard roads ordering
                 color: [1.0, .8, .0]
                 width: [[10, 2px], [13, 3px], [15, 4px], [16, 8px], [18, 20px]]
                 outline:
                     width: [[9, .25px], [13, 1px], [19, 3px]]
             link:
-                filter: { is_link: yes }
+                filter: { is_link: yes } # on- and off-ramps, etc
                 style:
                     color: [0.65882, 0.65882, 0.50196]
                     width: [[13, 0px], [14, 3px], [16, 5px], [18, 10px]]
@@ -106,8 +107,7 @@ layers:
                 color: [0.8, 0.8, 0.8]
                 width: [[15, 0px], [16, 2px], [17, 3px], [18, 5px]]
                 outline:
-                    color: "#666"
-                    # width: [[15, 0px], [16, .2px]]
+                    color: "#666" # need quotes because '#' is a yaml comment
 
     buildings:
         geometry: { source: osm, filter: buildings }
