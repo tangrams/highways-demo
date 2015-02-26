@@ -26,7 +26,7 @@ layers:
             filter: { kind: park }
             style:
                 order: 1
-                color: [[10, [0.3, 0.4, 0.3]], [14, [0.5, 0.875, 0.5]]]
+                color: [[10, [0.3, 0.4, 0.3]], [14, [0.5, 0.825, 0.5]]]
         playgrounds:
             filter: { kind: [pitch, playground] }
             style:
@@ -65,12 +65,11 @@ layers:
         highway:
             filter: { kind: highway }
             style:
-                orderReset: true # do not inherit from parent roads style - set independently
                 order: function () { return (zoom < 14 && 3.5) || 3+(feature.sort_key * .000025); } # if zoom < 14, set to 3.5 (all at same z, and on top of all other roads) – otherwise, use standard roads ordering
                 color: [1.0, .8, .0]
                 width: [[10, 2px], [13, 3px], [15, 4px], [16, 8px], [18, 20px]]
                 outline:
-                    width: [[9, .25px], [13, 1px], [19, 3px]]
+                    width: [[9, .25px], [15, 1px], [19, 2px]]
             link:
                 filter: { is_link: yes } # on- and off-ramps, etc
                 style:
@@ -80,13 +79,13 @@ layers:
                         color: [.3, .3, .3]
                         width: [[13, 0px], [14, .5px], [18, 1.5px]]
                 tunnel-link:
-                    filter: {is_tunnel: yes, scene.zoom: 13 }
+                    filter: {is_tunnel: yes, $zoom: {min: 13} }
                     style:
                         color: [0.8, 0.8, 0.7]
                         outline:
                             color: [.5, .5, .5]
             tunnel:
-                filter: {is_tunnel: yes, is_link: no, scene.zoom: 13 }
+                filter: {is_tunnel: yes, $zoom: {min: 13} }
                 style:
                     color: [0.8, 0.8, 0.7]
                     outline:
@@ -112,7 +111,7 @@ layers:
                 color: [0.8, 0.8, 0.8]
                 width: [[15, 0px], [16, 2px], [17, 3px], [18, 5px]]
                 outline:
-                    color: "#666" # need quotes because '#' is a yaml comment
+                    color: '#666'
 
     buildings:
         geometry: { source: osm, filter: buildings }
