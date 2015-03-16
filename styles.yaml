@@ -5,8 +5,12 @@ camera:
     type: isometric
     axis: [0, .1]
 
-lighting:
-    type: directional
+lights:
+    light1:
+        type: directional
+        direction: [1, 1, -.9]
+        diffuse: .5
+        ambient: .85
 
 sources:
     osm:
