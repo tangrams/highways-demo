@@ -19,13 +19,13 @@ sources:
 
 layers:
     earth:
-        data: { source: osm, filter: earth }
+        data: { source: osm, layer: earth }
         style:
             order: 0
             color: [.4, .4, .4]
 
     landuse:
-        data: { source: osm, filter: landuse }
+        data: { source: osm, layer: landuse }
         parks:
             filter: { kind: park }
             style:
@@ -43,7 +43,7 @@ layers:
                 color: [0.3, 0.4, 0.3]
 
     water:
-        data: { source: osm, filter: water }
+        data: { source: osm, layer: water }
         style:
             order: 2
             color: [0.83, 0.83, 0.83]
@@ -56,7 +56,7 @@ layers:
                     width: function() {return (2.5 * Math.log(zoom));}
 
     roads:
-        data: { source: osm, filter: roads }
+        data: { source: osm, layer: roads }
         style:
             order: 3
             color: [0.83, 0.83, 0.83]
@@ -126,7 +126,7 @@ layers:
                 order: function () { return feature.sort_key * .000025; }
 
     buildings:
-        data: { source: osm, filter: buildings }
+        data: { source: osm, layer: buildings }
         style:
             order: 4
             color: [.3, .3, .3]
