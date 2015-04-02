@@ -34,7 +34,7 @@ layers:
         playgrounds:
             filter: { kind: [pitch, playground] }
             style:
-                order: 1.1
+                order: 2
                 color: [0.3, 0.675, 0.3]
         cemeteries:
             filter: { kind: cemetery }
@@ -45,7 +45,7 @@ layers:
     water:
         data: { source: osm, layer: water }
         style:
-            order: 2
+            order: 3
             color: [0.83, 0.83, 0.83]
 
         outline-style:
@@ -58,7 +58,7 @@ layers:
     roads:
         data: { source: osm, layer: roads }
         style:
-            order: 3
+            order: 4
             color: [0.83, 0.83, 0.83]
             width: function () { return Math.log(zoom); }
             outline:
@@ -68,10 +68,8 @@ layers:
         highway:
             filter: { kind: highway }
             style:
-                # put highways on top of all other roads -- when the
-                # "z-order" sub-style below applies, it will overwrite this
-                # because it is defined later
-                order: .9
+                # put highways on top of all other roads
+                order: 5
                 color: [1.0, .8, .0]
                 width: [[10, 2px], [13, 3px], [15, 4px], [16, 8px], [18, 20px]]
                 outline:
@@ -123,11 +121,22 @@ layers:
         z-order:
             filter: { $zoom: {min: 14} }
             style:
-                order: function () { return feature.sort_key * .000025; }
+                order: |
+                    function () {
+                        function reduceSortKey(key) {
+                            return 30 * Math.floor((key % 10000) / 1000) +
+                                   10 * Math.floor((key % 1000) / 100) +
+                                   1  * (key % 10);
+                        }
+
+                        var min = reduceSortKey(-3109);
+                        var order = 4 + reduceSortKey(feature.sort_key) - min;
+                        return order;
+                    }
 
     buildings:
         data: { source: osm, layer: buildings }
         style:
-            order: 4
+            order: 6
             color: [.3, .3, .3]
             extrude: function () { return ( zoom >= 16) || (zoom >= 15 && feature.height > 20) }
