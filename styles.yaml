@@ -1,6 +1,11 @@
 # oakland interchange:
 # 37.80975004772091,-122.27886199951173,14
 
+sources:
+    osm:
+        type: MVTSource
+        url:  http://vector.mapzen.com/osm/all/{z}/{x}/{y}.mapbox
+
 camera:
     type: isometric
     axis: [0, .1]
@@ -11,11 +16,6 @@ lights:
         direction: [1, 1, -.9]
         diffuse: .5
         ambient: .85
-
-sources:
-    osm:
-        type: GeoJSONTileSource
-        url:  http://vector.mapzen.com/osm/all/{z}/{x}/{y}.json
 
 layers:
     earth:
