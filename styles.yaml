@@ -143,8 +143,8 @@ layers:
     road_labels:
         data: { source: osm, layer: roads }
 
-        # filter: { name: true, $zoom: { min: 14 } }
-        filter: { name: true }
+        # filter: { name: true, $zoom: { min: 13 } }
+        # filter: { name: true }
         style:
             name: text
             order: 12
@@ -155,19 +155,17 @@ layers:
                 stroke: black
 
         # highways:
-        #     filter: { kind: highway, $zoom: { max: 13 } }
-        #     style:
-        #         visible: false
+        #     filter: { kind: highway, $zoom: { min: 13 } }
         major_road:
-            filter: { kind: major_road, $zoom: { max: 14 } }
+            filter: { kind: major_road, $zoom: { min: 13 } }
             style:
-                size: 0px
-        # minor_road:
-        #     filter: { kind: minor_road, railway: false, $zoom: { min: 15 } }
-        #     style:
-        #         font:
-        #             typeface: 11px Helvetica
-        #             # fill: [0.8, 0.7, 0.7]
-        #             # stroke: [.31, .33, .31]
-        #             fill: [0.9, 0.9, 0.9]
-        #             stroke: [.31, .33, .31]
+                size: 12px
+        minor_road:
+            filter: { kind: minor_road, railway: false, $zoom: { min: 14 } }
+            style:
+                font:
+                    typeface: 11px Helvetica
+                    # fill: [0.8, 0.7, 0.7]
+                    # stroke: [.31, .33, .31]
+                    fill: blue
+                    stroke: [.31, .33, .31]
