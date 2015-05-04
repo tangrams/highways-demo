@@ -59,7 +59,7 @@ layers:
                 order: 3
                 color: [0.83, 0.83, 0.83]
 
-        outline-style:
+        outlines:
             filter: function () { return (feature.kind != 'ocean' && feature.kind != 'riverbank') && $zoom >= 14; }
             draw:
                 flatlines:
