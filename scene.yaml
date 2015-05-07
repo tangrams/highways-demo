@@ -8,8 +8,8 @@
 
 sources:
     osm:
-        type: MVT
-        url:  http://vector.mapzen.com/osm/all/{z}/{x}/{y}.mapbox
+        type: TopoJSONTiles
+        url:  http://vector.mapzen.com/osm/all/{z}/{x}/{y}.topojson
 camera:
     type: isometric
     axis: [0, .1]
