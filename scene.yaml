@@ -9,7 +9,7 @@
 sources:
     osm:
         type: TopoJSONTiles
-        url:  http://vector.mapzen.com/osm/all/{z}/{x}/{y}.topojson
+        url:  //vector.mapzen.com/osm/all/{z}/{x}/{y}.topojson
 camera:
     type: isometric
     axis: [0, .1]
@@ -126,49 +126,49 @@ layers:
                     color: [[13, [0.8, 0.8, 0.8]], [17, [1, 1, 1]]]
                     width: [[12, 0px], [13, 2px], [15, 2.5px], [16, 4px], [17, 7px], [18, 15px]]
                 outline:
-                    width: [[12, 0px], [13, 3px], [15, 3.5px], [16, 5px], [18, 16px]]
-            primary:
-                filter: { highway: primary }
-                draw:
-                    flatlines:
-                        width: [[9, 0px], [10, 1.5px], [12, 2.5px], [15, 2.5px], [16, 4px], [17, 7px], [18, 15px]]
-                    outline:
-                        width: [[9, 0px], [10, 2.5px], [12, 3.5px], [15, 3.5px], [16, 5px], [18, 16px]]
-            secondary:
-                filter: { highway: secondary }
-                draw:
-                    flatlines:
-                        width: [[10, 0px], [12, .75px], [13, 2.5px], [15, 2.5px], [16, 4px], [17, 7px], [18, 15px]]
-                    outline:
-                        width: [[12, 0px], [13, 3.5px], [15, 3.5px], [16, 5px], [18, 16px]]
-            tertiary:
-                filter: { highway: tertiary }
-                draw:
-                    flatlines:
-                        width: [[10, 0px], [12, .75px], [13, 2.5px], [15, 2.5px], [16, 4px], [17, 7px], [18, 15px]]
-                    outline:
-                        width: [[12, 0px], [13, 3.5px], [15, 3.5px], [16, 5px], [18, 16px]]
+                    width: [[12, 0px], [13, .5px], [15, 1px]]
+        #     primary:
+        #         filter: { highway: primary }
+        #         draw:
+        #             flatlines:
+        #                 width: [[9, 0px], [10, 1.5px], [12, 2.5px], [15, 2.5px], [16, 4px], [17, 7px], [18, 15px]]
+        #             outline:
+        #                 width: [[9, 0px], [10, 2.5px], [12, 3.5px], [15, 3.5px], [16, 5px], [18, 16px]]
+        #     secondary:
+        #         filter: { highway: secondary }
+        #         draw:
+        #             flatlines:
+        #                 width: [[10, 0px], [12, .75px], [13, 2.5px], [15, 2.5px], [16, 4px], [17, 7px], [18, 15px]]
+        #             outline:
+        #                 width: [[12, 0px], [13, 3.5px], [15, 3.5px], [16, 5px], [18, 16px]]
+        #     tertiary:
+        #         filter: { highway: tertiary }
+        #         draw:
+        #             flatlines:
+        #                 width: [[10, 0px], [12, .75px], [13, 2.5px], [15, 2.5px], [16, 4px], [17, 7px], [18, 15px]]
+        #             outline:
+        #                 width: [[12, 0px], [13, 3.5px], [15, 3.5px], [16, 5px], [18, 16px]]
 
-        minor_road:
-            filter: { kind: minor_road, not: { highway: service } }
-            draw:
-                flatlines:
-                    order: -1
-                    color: [[15, [0.6, 0.6, 0.6]], [17, [0.8, 0.8, 0.8]]]
-                    width: [[11, 0px], [13, 1.5px], [15, 3px], [17, 5px]]
-                outline:
-                    order: -2
-                    width: [[12, 0px], [13, 2px], [17, 7px]]
-        path:
-            filter: { kind: path }
-            draw:
-                flatlines:
-                    order: -2
-                    color: [0.8, 0.8, 0.8]
-                    width: [[15, 0px], [16, 3m]]
-                outline:
-                    width: 0
-                    color: '#666'
+        # minor_road:
+        #     filter: { kind: minor_road, not: { highway: service } }
+        #     draw:
+        #         flatlines:
+        #             order: -1
+        #             color: [[15, [0.6, 0.6, 0.6]], [17, [0.8, 0.8, 0.8]]]
+        #             width: [[11, 0px], [13, 1.5px], [15, 3px], [17, 5px]]
+        #         outline:
+        #             order: -2
+        #             width: [[12, 0px], [13, 2px], [17, 7px]]
+        # path:
+        #     filter: { kind: path }
+        #     draw:
+        #         flatlines:
+        #             order: -2
+        #             color: [0.8, 0.8, 0.8]
+        #             width: [[15, 0px], [16, 3m]]
+        #         outline:
+        #             width: 0
+        #             color: '#666'
 
         # separate roads slightly in z based on their sort-order past zoom 14
         z-order:
