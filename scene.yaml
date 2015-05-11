@@ -64,7 +64,7 @@ layers:
                 color: [0.83, 0.83, 0.83]
 
         outlines:
-            filter: { not: { kind: [ocean, riverbank] }, $zoom: { min: 14 } }
+            filter: { not: { kind: [ocean, riverbank, river] }, $zoom: { min: 14 } }
             draw:
                 flatlines:
                     order: 4
@@ -73,11 +73,10 @@ layers:
 
     roads:
         data: { source: osm, layer: roads }
-        filter: { not: { highway: service } }
+        filter: { not: { highway: service, kind: rail } }
         draw:
             flatlines:
-                interactive: true
-                order: 6
+                order: 7
                 color: [0.83, 0.83, 0.83]
                 width: function () { return Math.log($zoom); }
                 outline:
@@ -145,7 +144,7 @@ layers:
                 filter: { highway: secondary }
                 draw:
                     flatlines:
-                        width: [[11, 0px], [13, .75px], [14, 2.5px], [16, 2.5px], [17, 4px], [18, 7px], [19, 15px]]
+                        width: [[11, 0px], [13, 1.5px], [14, 2.5px], [16, 2.5px], [17, 4px], [18, 7px], [19, 15px]]
                         outline:
                             width: [[13, 0px], [14, 1.5px]]
             tertiary:
@@ -160,7 +159,7 @@ layers:
             filter: { kind: minor_road, not: { highway: service } }
             draw:
                 flatlines:
-                    order: 6
+                    order: 3
                     color: [[15, [0.6, 0.6, 0.6]], [17, [0.8, 0.8, 0.8]]]
                     width: [[13, 0px], [14, 1.5px], [15, 3px], [16, 5px]]
                     outline:
@@ -169,11 +168,9 @@ layers:
             filter: { kind: path }
             draw:
                 flatlines:
-                    order: 6
                     color: [0.8, 0.8, 0.8]
-                    width: [[15, 0px], [16, 3m]]
+                    width: [[15, 0], [16, 3m]]
                     outline:
-                        style: flatlines
                         width: 0
 
         # separate roads slightly in z based on their sort-order past zoom 14
@@ -191,8 +188,8 @@ layers:
 
                             var min = reduceSortKey(-3109);
                             var order;
-                            if (feature.sort_key < 10) { order = 7; }
-                            else { order = 7 + reduceSortKey(feature.sort_key) - min; }
+                            if (feature.sort_key < 20) { order = 6; }
+                            else { order = 6 + reduceSortKey(feature.sort_key) - min; }
                             return order;
                         }
 
@@ -213,4 +210,4 @@ layers:
     #                 typeface: 100 18px Helvetica
     #                 fill: white
     #             text_source: |
-    #                 function() { return feature.kind + ": " + feature.highway; }
+    #                 function() { return feature.sort_key; }
