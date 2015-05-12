@@ -203,12 +203,18 @@ layers:
                 color: [.3, .3, .3]
                 extrude: function () { return ( $zoom >= 16) || ($zoom >= 15 && feature.height > 20) }
 
-    # road-labels:
-    #     data: { source: osm, layer: roads }
-    #     draw:
-    #         text:
-    #             font:
-    #                 typeface: 100 18px Helvetica
-    #                 fill: white
-    #             text_source: |
-    #                 function() { return feature.sort_key; }
+    places:
+        data: { source: osm }
+        filter: { name: true, not: { kind: [county, state, island] } }
+        draw:
+            text:
+                font:
+                    typeface: 100 18px Helvetica
+                    fill: white
+                    stroke: { color: black, width: 3 }
+        minor-places:
+            filter: { kind: [hamlet, village, town, neighbourhood, suburb, quarter], $zoom: { max: 15 } }
+            visible: false
+                # text-source: name
+                # text_source: |
+                #     function() { return feature.sort_key; }
