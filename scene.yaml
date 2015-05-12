@@ -160,6 +160,7 @@ layers:
             draw:
                 flatlines:
                     order: 3
+                    # color: red
                     color: [[15, [0.6, 0.6, 0.6]], [17, [0.8, 0.8, 0.8]]]
                     width: [[13, 0px], [14, 1.5px], [15, 3px], [16, 5px]]
                     outline:
@@ -169,7 +170,7 @@ layers:
             draw:
                 flatlines:
                     color: [0.8, 0.8, 0.8]
-                    width: [[15, 0], [16, 3m]]
+                    width: [[16, 0], [17, 3m]]
                     outline:
                         width: 0
 
@@ -188,7 +189,7 @@ layers:
 
                             var min = reduceSortKey(-3109);
                             var order;
-                            if (feature.sort_key < 20) { order = 6; }
+                            if (feature.sort_key <= 21) { order = 6; }
                             else { order = 6 + reduceSortKey(feature.sort_key) - min; }
                             return order;
                         }
