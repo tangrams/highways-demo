@@ -1,10 +1,9 @@
 # This style is an homage to Michal Migurski's High Road demo:
 # https://github.com/migurski/HighRoad
-# It uses stops to set line and outline widths at various zoom levels.
+# It uses stops to set line and outline widths at various zoom levels,
+# and the sort_key property to arrange bridges, overpasses, and tunnels
+# by depth.
 #
-
-# oakland interchange:
-# 37.80975004772091,-122.27886199951173,14
 
 sources:
     osm:
@@ -12,7 +11,7 @@ sources:
         url:  //vector.mapzen.com/osm/all/{z}/{x}/{y}.topojson?api_key=vector-tiles-HqUVidw
 camera:
     type: isometric
-    axis: [0, .1]
+    axis: [0, .1] # very small building extrusion
 
 lights:
     light1:
@@ -24,10 +23,10 @@ lights:
 styles:
     flatlines:
         base: lines
-        lighting: false
+        lighting: false # ignore lights
     flatpolys:
         base: polygons
-        lighting: false
+        lighting: false # ignore lights
 
 scene:
     background:
@@ -48,6 +47,7 @@ layers:
             draw:
                 flatpolys:
                     order: 1
+                    # tone down green as you zoom out
                     color: [[10, [0.3, 0.4, 0.3]], [14, [0.5, 0.825, 0.5]]]
         playgrounds:
             filter: { kind: [pitch, playground] }
@@ -62,14 +62,6 @@ layers:
             flatpolys:
                 order: 3
                 color: [0.83, 0.83, 0.83]
-
-        outlines:
-            filter: { not: { kind: [ocean, riverbank, river] }, $zoom: { min: 14 } }
-            draw:
-                flatlines:
-                    order: 4
-                    color: [.6, .6, .6]
-                    width: function() {return (2.5 * Math.log($zoom));}
 
     roads:
         data: { source: osm, layer: roads }
@@ -97,7 +89,7 @@ layers:
                     # put highways on top of all other roads
                     order: 8
                     color: [1.0, .8, .0]
-                    width: [[11, 2px], [14, 3px], [16, 4px], [17, 8px], [19, 20px]]
+                    width: [[11, 2px], [14, 3px], [16, 4px], [17, 10m]]
                     outline:
                         color: black
                         width: [[10, 0], [12, 1px], [16, 2px]]
@@ -106,7 +98,7 @@ layers:
                 draw:
                     flatlines:
                         color: [0.65882, 0.65882, 0.50196]
-                        width: [[13, 0px], [14, 3px], [16, 5px], [18, 10px]]
+                        width: [[13, 0px], [14, 3px], [16, 5px], [18, 10m]]
                         outline:
                             color: [.3, .3, .3]
                             width: [[13, 0px], [14, 1px], [18, 1.5px]]
@@ -127,31 +119,32 @@ layers:
                             color: [.5, .5, .5]
         major_road:
             filter: { kind: major_road }
+            # default style
             draw:
                 flatlines:
                     color: [[13, [0.8, 0.8, 0.8]], [17, [1, 1, 1]]]
-                    width: [[13, 0px], [14, 2px], [16, 2.5px], [17, 4px], [18, 7px], [19, 15px]]
+                    width: [[13, 0px], [14, 2px], [16, 2.5px], [19, 8m]]
                     outline:
                         width: [[12, 0px], [13, .5px], [15, 1px]]
             primary:
                 filter: { highway: primary }
                 draw:
                     flatlines:
-                        width: [[10, 0px], [11, 1.5px], [13, 2.5px], [16, 2.5px], [17, 4px], [18, 7px], [19, 15px]]
+                        width: [[10, 0px], [11, 1.5px], [13, 2.5px], [16, 2.5px], [19, 8m]]
                         outline:
                             width: [[10, 0px], [11, .5px], [16, .75px]]
             secondary:
                 filter: { highway: secondary }
                 draw:
                     flatlines:
-                        width: [[11, 0px], [13, 1.5px], [14, 2.5px], [16, 2.5px], [17, 4px], [18, 7px], [19, 15px]]
+                        width: [[11, 0px], [13, 1.5px], [14, 2.5px], [16, 2.5px], [19, 8m]]
                         outline:
                             width: [[13, 0px], [14, 1.5px]]
             tertiary:
                 filter: { highway: tertiary }
                 draw:
                     flatlines:
-                        width: [[11, 0px], [13, .75px], [14, 2.5px], [16, 2.5px], [17, 4px], [18, 7px], [19, 15px]]
+                        width: [[11, 0px], [13, .75px], [14, 2.5px], [16, 2.5px], [19, 8m]]
                         outline:
                             width: [[12, 0px], [15, .5px], [16, 1.25px], [18, 4.5px]]
 
@@ -159,10 +152,9 @@ layers:
             filter: { kind: minor_road, not: { highway: service } }
             draw:
                 flatlines:
-                    order: 3
-                    # color: red
+                    # order: 3
                     color: [[15, [0.6, 0.6, 0.6]], [17, [0.8, 0.8, 0.8]]]
-                    width: [[13, 0px], [14, 1.5px], [15, 3px], [16, 5px]]
+                    width: [[13, 0px], [14, 1.5px], [15, 3px], [16, 5m]]
                     outline:
                         width: [[12, 0px], [14, .5px], [17, 1px]]
         path:
@@ -172,27 +164,25 @@ layers:
                     color: [0.8, 0.8, 0.8]
                     width: [[16, 0], [17, 3m]]
                     outline:
-                        width: 0
+                        width: .1
 
-        # separate roads slightly in z based on their sort-order past zoom 14
         z-order:
             filter: { $zoom: {min: 14} }
             draw:
                 flatlines:
-                    order: |
-                        function () {
-                            function reduceSortKey(key) {
-                                return 30 * Math.floor((key % 10000) / 1000) +
-                                       10 * Math.floor((key % 1000) / 100) +
-                                       1  * (key % 10);
-                            }
+                    # let roads sort themselves past zoom 14
+                    order: function() { return 6 + feature.sort_key; }
+                    # but give them all the same outline
+                    outline:
+                        order: 21 # 15 is the starting aboveground level, plus 6
 
-                            var min = reduceSortKey(-3109);
-                            var order;
-                            if (feature.sort_key <= 21) { order = 6; }
-                            else { order = 6 + reduceSortKey(feature.sort_key) - min; }
-                            return order;
-                        }
+            bridges-tunnels:
+                filter: { any: [is_bridge: yes, is_tunnel: yes] }
+                draw:
+                    flatlines:
+                        outline:
+                            # except bridges and tunnels, their outlines should also self-sort
+                            order: function() { return 6 + feature.sort_key; }
 
     # buildings are the only layer that gets lighting
     buildings:
@@ -201,6 +191,7 @@ layers:
             polygons:
                 order: 9
                 color: [.3, .3, .3]
+                # under z15, only extrude buildings taller than 20m
                 extrude: function () { return ( $zoom >= 16) || ($zoom >= 15 && feature.height > 20) }
 
     places:
@@ -212,9 +203,7 @@ layers:
                     typeface: 100 18px Helvetica
                     fill: white
                     stroke: { color: black, width: 3 }
+        # nix podunk burgs under z15
         minor-places:
             filter: { kind: [hamlet, village, town, neighbourhood, suburb, quarter], $zoom: { max: 15 } }
             visible: false
-                # text-source: name
-                # text_source: |
-                #     function() { return feature.sort_key; }
