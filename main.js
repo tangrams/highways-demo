@@ -1,7 +1,7 @@
 /*jslint browser: true*/
 /*global Tangram, gui */
 
-(function () {
+map = (function () {
     'use strict';
 
     var locations = {
@@ -55,5 +55,7 @@
         });
         layer.addTo(map);
     });
+
+    return map;
 
 }());
