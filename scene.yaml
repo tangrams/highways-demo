@@ -200,7 +200,9 @@ layers:
         draw:
             text:
                 font:
-                    typeface: 100 18px Helvetica
+                    weight: 100
+                    size: 18px
+                    family: Helvetica
                     fill: white
                     stroke: { color: black, width: 3 }
         # nix podunk burgs under z15
