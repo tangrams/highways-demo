@@ -65,7 +65,7 @@ layers:
 
     roads:
         data: { source: osm, layer: roads }
-        filter: { not: { highway: service, kind: rail } }
+        filter: { not: { kind_detail: service, kind: rail } }
         draw:
             flatlines:
                 order: function() { return feature.sort_rank; }
@@ -127,21 +127,21 @@ layers:
                     outline:
                         width: [[12, 0px], [13, .5px], [15, 1px]]
             primary:
-                filter: { highway: primary }
+                filter: { kind_detail: primary }
                 draw:
                     flatlines:
                         width: [[10, 0px], [11, 1.5px], [13, 2.5px], [16, 2.5px], [19, 8m]]
                         outline:
                             width: [[10, 0px], [11, .5px], [16, .75px]]
             secondary:
-                filter: { highway: secondary }
+                filter: { kind_detail: secondary }
                 draw:
                     flatlines:
                         width: [[11, 0px], [13, 1.5px], [14, 2.5px], [16, 2.5px], [19, 8m]]
                         outline:
                             width: [[13, 0px], [14, 1.5px]]
             tertiary:
-                filter: { highway: tertiary }
+                filter: { kind_detail: tertiary }
                 draw:
                     flatlines:
                         width: [[11, 0px], [13, .75px], [14, 2.5px], [16, 2.5px], [19, 8m]]
@@ -149,7 +149,7 @@ layers:
                             width: [[12, 0px], [15, .5px], [16, 1.25px], [18, 4.5px]]
 
         minor_road:
-            filter: { kind: minor_road, not: { highway: service } }
+            filter: { kind: minor_road, not: { kind_detail: service } }
             draw:
                 flatlines:
                     color: [[15, [0.6, 0.6, 0.6]], [17, [0.8, 0.8, 0.8]]]
