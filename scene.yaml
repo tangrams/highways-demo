@@ -8,7 +8,7 @@
 sources:
     osm:
         type: TopoJSON
-        url: https://tile.mapzen.com/mapzen/vector/v1/all/{z}/{x}/{y}.topojson?api_key=mapzen-QF1osLn
+        url: https://tile.mapzen.com/mapzen/vector/v1/all/{z}/{x}/{y}.topojson?api_key=mapzen-tDHBHDp
 camera:
     type: isometric
     axis: [0, .1] # very small building extrusion
