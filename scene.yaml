@@ -82,7 +82,7 @@ layers:
             draw:
                 flatlines:
                     outline:
-                        order: 352                
+                        order: 352
                         width: function () { return 3/16 * Math.log($zoom); }
 
         highway:
