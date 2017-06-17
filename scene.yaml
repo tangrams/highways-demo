@@ -128,6 +128,7 @@ layers:
                     color: [[13, [0.8, 0.8, 0.8]], [17, [1, 1, 1]]]
                     width: [[13, 0px], [14, 2px], [16, 2.5px], [19, 8m]]
                     outline:
+                        cap: butt
                         width: [[12, 0px], [13, .5px], [15, 1px]]
             primary:
                 filter: { kind_detail: primary }
@@ -159,6 +160,7 @@ layers:
                     width: [[13, 0px], [14, 1.5px], [15, 10m]]
                     cap: round
                     outline:
+                        cap: butt
                         width: [[13, 0px], [14, .5px], [17, 1px]]
         path:
             filter: { kind: path }
@@ -168,6 +170,7 @@ layers:
                     width: [[16, 0], [17, 3m]]
                     cap: round
                     outline:
+                        cap: butt
                         width: .1
 
         z-order:
