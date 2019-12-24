@@ -197,6 +197,7 @@ layers:
     # buildings are the only layer that gets lighting
     buildings:
         data: { source: mapzen, layer: buildings }
+        filter: { $geometry: polygon } # filter out address points in buildings layer
         draw:
             polygons:
                 order: function() { return feature.sort_rank; }
