@@ -7,10 +7,13 @@
 
 sources:
     mapzen:
-        type: TopoJSON
-        url: https://tile.mapzen.com/mapzen/vector/v1/all/{z}/{x}/{y}.topojson
+        type: MVT
+        url: https://tile.nextzen.org/tilezen/vector/v1/512/all/{z}/{x}/{y}.mvt
         url_params:
-            api_key: mapzen-tDHBHDp
+            api_key: NaqqS33fTUmyQcvbuIUCKA
+        tile_size: 512
+        max_zoom: 16
+
 camera:
     type: isometric
     axis: [0, .1] # very small building extrusion
